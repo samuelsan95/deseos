@@ -29,4 +29,17 @@ export class AgregarComponent implements OnInit {
 
     this.itemName = "";
   }
+
+  removeItem(itemPos:number) {
+    console.log("Item pos ", itemPos);
+    console.log("Item length ", this.items.length);
+
+    if (this.items.length && this.items.length >= itemPos) {
+      console.log("hey");
+      this.items.splice(itemPos, 1);
+    } else {
+       return;
+    }
+
+  }
 }
