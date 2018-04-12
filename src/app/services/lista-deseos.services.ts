@@ -8,15 +8,28 @@ export class ListaDeseosService {
 
   constructor() {
 
-    let list1 = new List("Compras de supermercado", false);
-    let list2 = new List("Juegos que deseo", false);
-    let list3 = new List("Cosas de la uni", false);
-
-    this.lists.push(list1);
-    this.lists.push(list2);
-    this.lists.push(list3);
-
-    console.log("Servicio inicializado");
+    this.getData();
 
   }
+
+  updateData() {
+
+    localStorage.setItem( "data", JSON.stringify(this.lists) );
+
+  }
+
+  getData() {
+
+    if (localStorage.getItem( "data" )) {
+      this.lists = JSON.parse(localStorage.getItem( "data" ));
+    } 
+  }
+
+  addList( list:List ) {
+
+    this.lists.push(list);
+    this.updateData();
+
+  }
+
 }
