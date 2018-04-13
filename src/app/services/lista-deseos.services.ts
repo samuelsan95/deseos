@@ -32,4 +32,11 @@ export class ListaDeseosService {
 
   }
 
+  removeList( idx:number ) {
+
+    this.lists.splice(idx, 1);
+    this.updateData();
+
+  }
+
 }

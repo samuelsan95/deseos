@@ -6,22 +6,42 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let list of _listaDeseos.lists">
+  <ion-grid *ngIf="!(_listaDeseos.lists | pendientes).length">
+      <ion-row>
+        <ion-col class="text-center box-empty">
+          <ion-icon class="icon-giant" 
+            ios="ios-sunny" md="md-sunny"></ion-icon>
+          <p>No hay ninguna lista</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-item>
-      <h2>{{ list.name }}</h2>
+  <ion-card *ngFor="let list of _listaDeseos.lists | pendientes; let i = index">
+
+    <ion-item color="dark" (click)="showDetail(list, i)">
+      <h2 ion-text color="light">{{ list.name }}</h2>
+      <ion-note item-right>
+        {{ list.items.length }} items
+      </ion-note>
     </ion-item>
 
     <ion-list>
-      <ion-item>
-        <ion-icon ios="ios-arrow-dropright-circle" md="md-arrow-dropright-circle"></ion-icon>
-        Tetris
+
+      <ion-item *ngFor="let item of list.items | slice:0:2" 
+                (click)="showDetail(list, i)">
+        <ion-icon *ngIf="!item.complete" ios="ios-square-outline" md="md-square-outline"></ion-icon>
+        <ion-icon *ngIf="item.complete" ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
+        {{ item.name }} 
       </ion-item>
+
+      <ion-item class="text-center">
+          <ion-icon *ngIf="list.items.length > 2" color="primary" ios="ios-arrow-dropdown" md="md-arrow-dropdown"></ion-icon>
+      </ion-item>
+
     </ion-list>
   </ion-card>
 
   <ion-fab right bottom>
     <button ion-fab color="light" (click) = "goAgregar()"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
   </ion-fab>
-
 </ion-content>

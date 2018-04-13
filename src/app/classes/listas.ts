@@ -7,6 +7,6 @@ export class List{
 
   constructor( name : string, finish ?: boolean, items ?: Item[]) {
     this.name = name;
-    finish = false;
+    this.finish = false;
   }
 }
